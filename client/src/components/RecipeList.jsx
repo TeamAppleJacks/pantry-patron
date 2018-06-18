@@ -4,7 +4,7 @@ class RecipeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: '',
+      item: ''
     }
   }
 
@@ -16,13 +16,12 @@ class RecipeList extends React.Component {
         <a href={this.props.hit.recipe.url} target="_blank"><img src={this.props.hit.recipe.image} className="recipe-pic"/></a>
         <br /><br />
         <p className="recipe-type">
-          <b>Dietary Label(s):</b> {this.props.hit.recipe.dietLabels.join(', ')}<br />
-          <b>Health Label(s):</b> {this.props.hit.recipe.healthLabels.join(', ')}</p>
+          <b>Diet:</b> {this.props.hit.recipe.dietLabels.join(', ')}<br />
+          <b>Health:</b> {this.props.hit.recipe.healthLabels.join(', ')}</p>
         <ul className="recipe-ingredients">
-          <b>Ingredients:</b>
-          {this.props.hit.recipe.ingredientLines.map((eachIngredient, index) => <li key={index}>{eachIngredient}</li>)}
+          {this.props.hit.recipe.ingredientLines.map(eachIngredient => <li>{eachIngredient}</li>)}
         </ul>
-        <p><b><a href={this.props.hit.recipe.url} target="_blank"><i>Step-by-step Instructions</i></a></b></p>
+        <p><b><a href={this.props.hit.recipe.url} target="_blank">Step-by-step instructions here</a></b></p>
       </div>
     )
   }

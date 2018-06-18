@@ -27,7 +27,7 @@ class ListEntry extends React.Component {
     if (this.state.store_id._id) {
       $('.store-selection').val(this.state.store_id._id).change();
     }
-    this.setRecipes(this.state.ingredients);
+    this.setRecipes();
   }
 
   //this func is not going to be used by us pls ignore
@@ -86,6 +86,7 @@ class ListEntry extends React.Component {
     });
 
     this.setState({items: oldItems});
+    this.setRecipes();
   }
 
   //invoked by handleStoreChange() meant for store list- not being used atm
@@ -95,11 +96,8 @@ class ListEntry extends React.Component {
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(updatedList),
-      success: (response) => {
-        this.setState({ 
-          store_id: updatedList.store_id, 
-          recipeHit: response.hits 
-        });
+      success: () => {
+        this.setState({ store_id: updatedList.store_id });
       },
       error: (err) => {
         console.error(err);
@@ -107,15 +105,12 @@ class ListEntry extends React.Component {
     });
   }
 
-  setRecipes(ingredient) {
-    let ingredients = this.state.ingredients;
-    ingredients = `${ingredients}, ${ingredient}`;
-    this.setState({ ingredients })
+  setRecipes() {
     $.ajax({
       url: '/api/edamam',
       method: 'GET',
       data: {
-        q: ingredients,
+        q: this.state.ingredients
       },
       crossDomain: true,
       success: (data) => {
@@ -165,7 +160,7 @@ class ListEntry extends React.Component {
         </table>
 
         <br />
-        <ItemForm setListEntryState={this.setState.bind(this)} updateItem={this.props.updateItem} setRecipes={this.setRecipes.bind(this)} />
+        <ItemForm setListEntryState={this.setState.bind(this)} updateItem={this.props.updateItem} />
         <div>
           <br />
           <button onClick={this.props.deleteList}>

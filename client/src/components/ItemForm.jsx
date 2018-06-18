@@ -5,7 +5,7 @@ class ItemForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
+      name: ''
     }
 
     //component-global timer and delay
@@ -36,7 +36,7 @@ class ItemForm extends React.Component {
 
   // handle submit of edit
   handleSubmit() {
-    // console.log(this.state.name + '!!!!!!')
+    console.log(this.state.name + '!!!!!!')
     let itemName = this.state.name ? this.state.name
     : prompt('There is no such things as a null object in life. Give it a name');
 
@@ -52,9 +52,9 @@ class ItemForm extends React.Component {
     // then sends it to be added to the list
     newItem = this.transformItem(newItem, (newItem) => {
       this.props.updateItem(newItem, (items) => {
+
         this.props.setListEntryState({items: items});
         $('.add-item-input').val('');
-        this.props.setRecipes(this.state.name);
       });
     });
   }
